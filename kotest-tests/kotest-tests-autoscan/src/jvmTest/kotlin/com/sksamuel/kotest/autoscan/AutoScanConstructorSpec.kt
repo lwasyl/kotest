@@ -8,3 +8,9 @@ class AutoScanConstructorSpec(private val a: String, private val b: String) : Fu
       a.shouldBe(b)
    }
 })
+
+class ServiceLoaderConstructorSpec(private val a: String, private val b: String) : FunSpec({
+   test("foo") {
+      a.shouldBe(b)
+   }
+})

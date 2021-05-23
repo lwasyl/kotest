@@ -69,6 +69,10 @@ object KotestEngineProperties {
     */
    const val disableAutoScanClassPathScanning = "kotest.framework.classpath.scanning.autoscan.disable"
 
+   const val enableServiceLoaderConfigurationDiscovery = "kotest.framework.serviceloader.configuration.enable"
+
+   const val enableServiceLoaderExtensionsDiscovery = "kotest.framework.serviceloader.extensions.enable"
+
    const val allowMultilineTestName = "kotest.framework.testname.multiline"
 
    /**

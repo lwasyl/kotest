@@ -7,8 +7,9 @@ import io.kotest.matchers.string.shouldHaveLength
 class AutoScanProjectListenerTest : FunSpec({
 
    test("@AutoScan project listeners should be picked up") {
-      Container.results.shouldHaveLength(2)
+      Container.results.shouldHaveLength(3)
       Container.results.shouldContain("A")
       Container.results.shouldContain("C")
+      Container.results.shouldContain("E")
    }
 })

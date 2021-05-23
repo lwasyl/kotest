@@ -60,6 +60,8 @@ tasks.named<Test>("jvmTest") {
       events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED)
       exceptionFormat = TestExceptionFormat.FULL
    }
+
+   jvmArgs("-Dkotest.framework.serviceloader.configuration.enable", "-Dkotest.framework.serviceloader.extensions.enable")
 }
 
 apply(from = "../../nopublish.gradle")

@@ -6,6 +6,7 @@ import io.kotest.core.listeners.ProjectListener
 import io.kotest.fp.orElse
 import io.kotest.fp.toOption
 import io.kotest.mpp.instantiate
+import java.util.*
 
 /**
  * Returns a [DetectedProjectConfig] which is built scanning the classpath for
@@ -21,6 +22,11 @@ internal fun loadConfigFromAbstractProjectConfig(scanResult: ScanResult): Detect
       .map { it.toDetectedConfig() }
    return if (configs.isEmpty()) DetectedProjectConfig() else configs.reduce { a, b -> a.merge(b) }
 }
+
+internal fun loadConfigsFromServiceLoader() =
+   ServiceLoader.load(AbstractProjectConfig::class.java)
+      .map { it.toDetectedConfig() }
+      .fold(DetectedProjectConfig()) { acc, new -> acc.merge(new) }
 
 private fun AbstractProjectConfig.toDetectedConfig(): DetectedProjectConfig {
 

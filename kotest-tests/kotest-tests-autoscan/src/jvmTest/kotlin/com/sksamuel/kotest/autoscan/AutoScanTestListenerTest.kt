@@ -11,20 +11,32 @@ import java.util.concurrent.atomic.AtomicInteger
 class AutoScanTestListenerTest : WordSpec({
    "@AutoScan TestListeners" should {
       "be detected for all tests" {
-         MyTestListener.beforeCounter.get() shouldBe 6
-         MyTestListener.afterCounter.get() shouldBe 0
+         AutoScanMyTestListener.beforeCounter.get() shouldBe 6
+         AutoScanMyTestListener.afterCounter.get() shouldBe 0
+         ServiceLoaderMyTestListenerObject.beforeCounter.get() shouldBe 6
+         ServiceLoaderMyTestListenerObject.afterCounter.get() shouldBe 0
       }
       "even this one!" {
-         MyTestListener.beforeCounter.get() shouldBe 9
-         MyTestListener.afterCounter.get() shouldBe 3
+         AutoScanMyTestListener.beforeCounter.get() shouldBe 9
+         AutoScanMyTestListener.afterCounter.get() shouldBe 3
+         ServiceLoaderMyTestListenerObject.beforeCounter.get() shouldBe 9
+         ServiceLoaderMyTestListenerObject.afterCounter.get() shouldBe 3
       }
-      MyTestListener.beforeCounter.get() shouldBe 9
-      MyTestListener.afterCounter.get() shouldBe 6
+      AutoScanMyTestListener.beforeCounter.get() shouldBe 9
+      AutoScanMyTestListener.afterCounter.get() shouldBe 6
+      ServiceLoaderMyTestListenerObject.beforeCounter.get() shouldBe 9
+      ServiceLoaderMyTestListenerObject.afterCounter.get() shouldBe 6
    }
 })
 
 @AutoScan
-object MyTestListener : TestListener {
+object AutoScanMyTestListener : MyTestListener()
+
+object ServiceLoaderMyTestListenerObject : MyTestListener()
+
+class ServiceLoaderMyTestListener : TestListener by ServiceLoaderMyTestListenerObject
+
+abstract class MyTestListener : TestListener {
 
    val beforeCounter = AtomicInteger(0)
    val afterCounter = AtomicInteger(0)

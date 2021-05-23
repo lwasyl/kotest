@@ -6,6 +6,7 @@ import io.kotest.core.filter.Filter
 import io.kotest.core.listeners.Listener
 import io.kotest.core.spec.AutoScan
 import io.kotest.mpp.instantiate
+import java.util.*
 
 internal fun loadConfigFromAutoScanInstances(scanResult: ScanResult): DetectedProjectConfig {
 
@@ -24,3 +25,9 @@ internal fun loadConfigFromAutoScanInstances(scanResult: ScanResult): DetectedPr
       extensions = extensions
    )
 }
+
+internal fun loadConfigFromServiceLoaderExtensions() = DetectedProjectConfig(
+   listeners = ServiceLoader.load(Listener::class.java).toList(),
+   extensions = ServiceLoader.load(Extension::class.java).toList(),
+   filters = ServiceLoader.load(Filter::class.java).toList(),
+)
